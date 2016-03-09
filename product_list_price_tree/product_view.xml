@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_list_price_tree_view" model="ir.ui.view">
+            <field name="name">product.list.price.tree</field>
+            <field name="model">product.product</field>
+            <field eval="20" name="priority"/>
+            <field name="arch" type="xml">
+
+                <tree string="Product Prices" editable="bottom">
+                    <field name="default_code" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="lst_price"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_list_price_action" model="ir.actions.act_window">
+            <field name="name">Product Prices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_filter_to_sell":1}</field>
+            <field name="view_id" ref="product_list_price_tree_view"/>
+            <field name="search_view_id" ref="product.product_search_form_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new product.
+              </p><p>
+                You must define a product for everything you sell, whether it's
+                a physical product, a consumable or a service you offer to
+                customers.
+              </p><p>
+                The product form contains information to simplify the sale
+                process: price, notes in the quotation, accounting data,
+                procurement methods, etc.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_product_list_price" action="product_list_price_action" name="Product Prices" parent="base.menu_product" sequence="11"/>
+
+    </data>
+</openerp>
